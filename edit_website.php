@@ -56,20 +56,45 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             <div class="content">
                 <div class="form-container">
-                    <form method="POST" action="">
-                        <label for="name">Website Name</label>
-                        <input type="text" id="name" name="name" value="<?php echo htmlspecialchars($website['name']); ?>" required>
-
-                        <label for="url">URL</label>
-                        <input type="text" id="url" name="url" value="<?php echo htmlspecialchars($website['url']); ?>" required>
-
-                        <label for="description">Description</label>
-                        <textarea id="description" name="description"><?php echo htmlspecialchars($website['description']); ?></textarea>
-
-                        <button type="submit" class="btn"><i class="fas fa-save"></i> Update Website</button>
-                        <a href="dashboard.php" class="btn" style="background-color: var(--secondary-color); margin-left: 10px;">Cancel</a>
+                    <h2>Edit Website</h2>
+                    <?php if (isset($error)): ?>
+                        <div class="alert alert-error">
+                            <i class="fas fa-exclamation-circle"></i> 
+                            <?php echo htmlspecialchars($error); ?>
+                        </div>
+                    <?php endif; ?>
+                    
+                    <form method="POST" action="" class="website-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="name">Website Name <span class="required">*</span></label>
+                                <input type="text" id="name" name="name" class="form-control" 
+                                       value="<?php echo htmlspecialchars($website['name']); ?>" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="url">Website URL <span class="required">*</span></label>
+                                <input type="url" id="url" name="url" class="form-control"
+                                       value="<?php echo htmlspecialchars($website['url']); ?>" required>
+                                <small class="form-text">Include http:// or https://</small>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="description">Description</label>
+                            <textarea id="description" name="description" class="form-control" 
+                                      rows="4" placeholder="Enter a brief description of the website"><?php echo htmlspecialchars($website['description']); ?></textarea>
+                        </div>
+                        
+                        <div class="form-actions">
+                            <a href="dashboard.php" class="btn btn-secondary">
+                                <i class="fas fa-arrow-left"></i> Back to Dashboard
+                            </a>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save"></i> Save Changes
+                            </button>
+                        </div>
                     </form>
-                    <?php if (isset($error)) { echo "<p class='error'>$error</p>"; } ?>
                 </div>
             </div>
         </div>
