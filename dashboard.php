@@ -34,7 +34,13 @@ include 'database.php';
 
                     if ($result->num_rows > 0) {
                         while($row = $result->fetch_assoc()) {
+                            // --- Automated Thumbnail Generation ---
+                            $website_url = htmlspecialchars($row['url']);
+                            $thumbnail_service_url = "https://s0.wordpress.com/mshots/v1/" . urlencode($website_url) . "?w=400";
+                            // -------------------------------------
+
                             echo "<div class='website-card'>";
+                            echo "<div class='website-card-thumbnail'><img src='" . $thumbnail_service_url . "' alt='" . htmlspecialchars($row['name']) . " Thumbnail'></div>";
                             echo "<h4>" . htmlspecialchars($row['name']) . "</h4>";
                             echo "<p>" . htmlspecialchars($row['description']) . "</p>";
                             echo "<div class='card-actions'>";
