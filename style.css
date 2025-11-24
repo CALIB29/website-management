@@ -1,0 +1,363 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+:root {
+    --primary-color: #1a3a6b; /* Deep Navy Blue */
+    --secondary-color: #8e9aaf; /* Soft Gray */
+    --background-color: #f5f7fa; /* Light Gray */
+    --sidebar-bg: #2c3e50; /* Charcoal Gray */
+    --sidebar-text: #ecf0f1; /* Light text for sidebar */
+    --sidebar-hover: #34495e; /* Slightly lighter charcoal for hover */
+    --text-color: #333;
+    --card-bg: #ffffff;
+    --shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    margin: 0;
+}
+
+/* --- Login Page --- */
+body.login-page-body {
+    background-image: url('images/src.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.login-box {
+    width: 380px;
+    padding: 40px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    text-align: center;
+}
+
+.login-box h2 {
+    margin-bottom: 10px;
+    color: #fff;
+    font-weight: 600;
+}
+
+.login-box p {
+    margin-bottom: 30px;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.login-box .input-group {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.login-box input {
+    width: 100%;
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 16px;
+    color: #fff;
+}
+
+.login-box input::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.login-box button {
+    width: 100%;
+    padding: 12px;
+    background-color: var(--primary-color);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+.login-box button:hover {
+    background-color: #0056b3;
+}
+
+.login-box .error {
+    color: #dc3545;
+    margin-top: 15px;
+}
+
+/* --- Dashboard Layout --- */
+.dashboard-container {
+    display: flex;
+}
+
+.sidebar {
+    width: 260px;
+    background-color: var(--sidebar-bg);
+    color: var(--sidebar-text);
+    height: 100vh;
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar-header {
+    padding: 20px;
+    text-align: center;
+    border-bottom: 1px solid var(--sidebar-hover);
+}
+
+.sidebar-header h3 {
+    margin: 0;
+    font-weight: 600;
+}
+
+.sidebar-nav {
+    list-style: none;
+    padding: 20px 0;
+    margin: 0;
+    flex-grow: 1;
+}
+
+.sidebar-nav li a {
+    color: var(--sidebar-text);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    padding: 15px 25px;
+    transition: background-color 0.3s;
+}
+
+.sidebar-nav li a:hover {
+    background-color: var(--sidebar-hover);
+}
+
+.sidebar-nav li a i {
+    margin-right: 15px;
+    font-size: 1.2em;
+}
+
+.main-content {
+    margin-left: 260px;
+    flex: 1;
+    padding: 30px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.header h2 {
+    margin: 0;
+}
+
+/* --- Website Cards --- */
+.website-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 25px;
+}
+
+.website-card {
+    background: var(--card-bg);
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.website-card h4 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.website-card p {
+    color: var(--secondary-color);
+    flex-grow: 1;
+    margin-bottom: 20px;
+}
+
+.website-card .card-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.website-card .visit-link {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.website-card .action-buttons a {
+    text-decoration: none;
+    color: #fff;
+    padding: 6px 12px;
+    border-radius: 5px;
+    margin-left: 5px;
+    font-size: 14px;
+}
+
+/* --- General & Form Styles --- */
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: var(--primary-color);
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+.btn:hover {
+    background-color: #0056b3;
+}
+
+.btn-edit {
+    background-color: #28a745;
+}
+
+.btn-delete {
+    background-color: #dc3545;
+}
+
+.form-container {
+    padding: 30px;
+    background: var(--card-bg);
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+}
+
+.form-container label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.form-container input[type="text"],
+.form-container textarea {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 16px;
+    font-family: 'Poppins', sans-serif;
+}
+
+.form-container textarea {
+    height: 120px;
+    resize: vertical;
+}
+
+/* Table Styles */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+table th, table td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: left;
+}
+
+table th {
+    background-color: #f2f2f2;
+}
+
+table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+table tr:hover {
+    background-color: #f1f1f1;
+}
+
+.actions a {
+    text-decoration: none;
+    padding: 5px 10px;
+    border-radius: 3px;
+    color: #fff;
+}
+
+/* Button Styles */
+.btn {
+    display: inline-block;
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: #0056b3;
+}
+
+.btn-edit {
+    background-color: #28a745; /* Green */
+}
+
+.btn-delete {
+    background-color: #dc3545; /* Red */
+}
+
+/* Form Styles */
+.form-container {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.form-container h3 {
+    margin-top: 0;
+}
+
+.form-container label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+.form-container input[type="text"],
+.form-container textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.form-container textarea {
+    height: 100px;
+    resize: vertical;
+}

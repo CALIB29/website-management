@@ -1,0 +1,58 @@
+<?php
+session_start();
+
+if (!isset($_SESSION['admin_id'])) {
+    header("Location: login.php");
+    exit();
+}
+
+include 'database.php';
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - SRC Website Management</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <?php include 'sidebar.php'; ?>
+        <div class="main-content">
+            <div class="header">
+                <h2>Dashboard</h2>
+                <a href="add_website.php" class="btn"><i class="fas fa-plus"></i> Add New Website</a>
+            </div>
+            <div class="content">
+                <div class="website-grid">
+                    <?php
+                    $sql = "SELECT * FROM websites ORDER BY name ASC";
+                    $result = $conn->query($sql);
+
+                    if ($result->num_rows > 0) {
+                        while($row = $result->fetch_assoc()) {
+                            echo "<div class='website-card'>";
+                            echo "<h4>" . htmlspecialchars($row['name']) . "</h4>";
+                            echo "<p>" . htmlspecialchars($row['description']) . "</p>";
+                            echo "<div class='card-actions'>";
+                            echo "<a href='" . htmlspecialchars($row['url']) . "' target='_blank' class='visit-link'><i class='fas fa-external-link-alt'></i> Visit Site</a>";
+                            echo "<div class='action-buttons'>";
+                            echo "<a href='edit_website.php?id=" . $row['id'] . "' class='btn-edit'><i class='fas fa-edit'></i></a>";
+                            echo "<a href='delete_website.php?id=" . $row['id'] . "' class='btn-delete' onclick='return confirm(\"Are you sure you want to delete this website?\");'><i class='fas fa-trash'></i></a>";
+                            echo "</div>";
+                            echo "</div>";
+                            echo "</div>";
+                        }
+                    } else {
+                        echo "<p>No websites found. Click 'Add New Website' to get started.</p>";
+                    }
+                    ?>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

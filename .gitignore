@@ -1,0 +1,3 @@
+/vendor/
+.env
+create_admin.php
