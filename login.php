@@ -40,13 +40,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <body class="login-page-body">
     <div class="login-container">
         <div class="login-box">
+            <img src="images/src_logo.png" alt="SRC Logo" class="login-logo">
             <h2>SRC Admin Panel</h2>
             <p>Please log in to continue</p>
             <form method="POST" action="">
                 <div class="input-group">
+                    <i class="fas fa-user"></i>
                     <input type="text" name="username" placeholder="Username" required>
                 </div>
                 <div class="input-group">
+                    <i class="fas fa-lock"></i>
                     <input type="password" name="password" placeholder="Password" required>
                 </div>
                 <button type="submit">Login</button>

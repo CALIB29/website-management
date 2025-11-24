@@ -19,14 +19,17 @@ include 'database.php';
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    <div class="dashboard-container">
+    <div class="app-container">
         <?php include 'sidebar.php'; ?>
+
         <div class="main-content">
-            <div class="header">
-                <h2>Dashboard</h2>
-                <a href="add_website.php" class="btn"><i class="fas fa-plus"></i> Add New Website</a>
+            <div class="app-header">
+                <button id="menu-toggle"><i class="fas fa-bars"></i></button>
+                <h2 class="header-title">Dashboard</h2>
             </div>
+
             <div class="content">
+                <a href="add_website.php" class="btn" style="margin-bottom: 30px;"><i class="fas fa-plus"></i> Add New Website</a>
                 <div class="website-grid">
                     <?php
                     $sql = "SELECT * FROM websites ORDER BY name ASC";
@@ -60,5 +63,6 @@ include 'database.php';
             </div>
         </div>
     </div>
+    <script src="script.js"></script>
 </body>
 </html>

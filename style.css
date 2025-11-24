@@ -21,7 +21,7 @@ body {
 
 /* --- Login Page --- */
 body.login-page-body {
-    background-image: url('images/src.png');
+    background-image: url('images/src1.png');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -32,10 +32,13 @@ body.login-page-body {
     justify-content: center;
     align-items: center;
     height: 100vh;
+    padding: 0 20px; /* Add horizontal padding for small screens */
+    box-sizing: border-box;
 }
 
 .login-box {
-    width: 380px;
+    width: 100%; /* Make it flexible */
+    max-width: 380px; /* Set a maximum size */
     padding: 40px;
     background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(10px);
@@ -44,6 +47,12 @@ body.login-page-body {
     border: 1px solid rgba(255, 255, 255, 0.2);
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
     text-align: center;
+}
+
+.login-logo {
+    width: 100px; /* Adjust size as needed */
+    height: auto;
+    margin-bottom: 20px;
 }
 
 .login-box h2 {
@@ -57,17 +66,27 @@ body.login-page-body {
     color: rgba(255, 255, 255, 0.8);
 }
 
+
 .login-box .input-group {
     position: relative;
     margin-bottom: 20px;
 }
 
+.login-box .input-group i {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: rgba(255, 255, 255, 0.7);
+}
+
+
 .login-box input {
     width: 100%;
-    padding: 12px;
+    padding: 12px 12px 12px 45px; /* Add left padding for icon */
     background: rgba(255, 255, 255, 0.2);
     border: 1px solid rgba(255, 255, 255, 0.3);
-    border-radius: 5px;
+    border-radius: 8px; /* Slightly more rounded */
     box-sizing: border-box;
     font-size: 16px;
     color: #fff;
@@ -83,7 +102,7 @@ body.login-page-body {
     background-color: var(--primary-color);
     color: #fff;
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
     cursor: pointer;
     font-size: 16px;
     transition: background-color 0.3s;
@@ -98,8 +117,8 @@ body.login-page-body {
     margin-top: 15px;
 }
 
-/* --- Dashboard Layout --- */
-.dashboard-container {
+/* --- Mobile App Layout --- */
+.app-container {
     display: flex;
 }
 
@@ -109,8 +128,9 @@ body.login-page-body {
     color: var(--sidebar-text);
     height: 100vh;
     position: fixed;
-    display: flex;
-    flex-direction: column;
+    left: 0;
+    transition: left 0.3s ease;
+    z-index: 1000;
 }
 
 .sidebar-header {
@@ -128,7 +148,6 @@ body.login-page-body {
     list-style: none;
     padding: 20px 0;
     margin: 0;
-    flex-grow: 1;
 }
 
 .sidebar-nav li a {
@@ -150,20 +169,76 @@ body.login-page-body {
 }
 
 .main-content {
-    margin-left: 260px;
     flex: 1;
     padding: 30px;
+    padding-top: 90px; /* Space for fixed header */
+    margin-left: 260px;
+    transition: margin-left 0.3s ease;
 }
 
-.header {
+.app-header {
+    background: var(--card-bg);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    padding: 0 30px;
+    height: 60px;
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    margin-bottom: 30px;
+    position: fixed;
+    top: 0;
+    left: 260px;
+    right: 0;
+    z-index: 999;
+    transition: left 0.3s ease;
 }
 
-.header h2 {
-    margin: 0;
+#menu-toggle {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: var(--text-color);
+}
+
+.header-title {
+    font-size: 20px;
+    font-weight: 600;
+    margin-left: 20px;
+}
+
+/* Collapsed Sidebar State */
+.app-container.sidebar-collapsed .sidebar {
+    left: -260px;
+}
+
+.app-container.sidebar-collapsed .main-content {
+    margin-left: 0;
+}
+
+.app-container.sidebar-collapsed .app-header {
+    left: 0;
+}
+
+/* Responsive Design for Mobile */
+@media (max-width: 768px) {
+    .sidebar {
+        left: -260px; /* Hidden by default on mobile */
+    }
+
+    .main-content {
+        margin-left: 0;
+    }
+
+    .app-header {
+        left: 0;
+    }
+
+    .app-container.sidebar-collapsed .sidebar {
+        left: 0; /* Shown when toggled */
+    }
+
+    .website-grid {
+        grid-template-columns: 1fr; /* Stack cards vertically */
+    }
 }
 
 /* --- Website Cards --- */
@@ -184,10 +259,10 @@ body.login-page-body {
 
 .website-card .website-card-thumbnail {
     width: 100%;
-    height: 180px;
+    height: 160px; /* Adjusted for better proportions */
     overflow: hidden;
-    border-radius: 10px 10px 0 0; /* Match card corners */
-    margin: -20px -20px 20px -20px; /* Extend to card edges */
+    border-radius: 8px; /* Softer, inset radius */
+    margin-bottom: 20px; /* Space between thumbnail and title */
 }
 
 .website-card .website-card-thumbnail img {

@@ -45,12 +45,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    <div class="dashboard-container">
+    <div class="app-container">
         <?php include 'sidebar.php'; ?>
+
         <div class="main-content">
-            <div class="header">
-                <h2>Edit Website</h2>
+            <div class="app-header">
+                <button id="menu-toggle"><i class="fas fa-bars"></i></button>
+                <h2 class="header-title">Edit Website</h2>
             </div>
+
             <div class="content">
                 <div class="form-container">
                     <form method="POST" action="">
@@ -71,5 +74,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </div>
         </div>
     </div>
+    <script src="script.js"></script>
 </body>
 </html>
