@@ -47,49 +47,25 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             <div class="content">
                 <div class="form-container">
-                    <h2>Add New Website</h2>
-                    <?php if (isset($error)): ?>
-                        <div class="alert alert-error">
-                            <i class="fas fa-exclamation-circle"></i> 
-                            <?php echo htmlspecialchars($error); ?>
-                        </div>
-                    <?php endif; ?>
-                    
-                    <form method="POST" action="" class="website-form">
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="name">Website Name <span class="required">*</span></label>
-                                <input type="text" id="name" name="name" class="form-control" 
-                                       placeholder="Enter website name" required>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="url">Website URL <span class="required">*</span></label>
-                                <input type="url" id="url" name="url" class="form-control" 
-                                       placeholder="https://example.com" required>
-                                <small class="form-text">Include http:// or https://</small>
-                            </div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="description">Description</label>
-                            <textarea id="description" name="description" class="form-control" 
-                                     rows="4" placeholder="Enter a brief description of the website"></textarea>
-                        </div>
-                        
-                        <div class="form-actions">
-                            <a href="dashboard.php" class="btn btn-secondary">
-                                <i class="fas fa-arrow-left"></i> Back to Dashboard
-                            </a>
-                            <button type="submit" class="btn btn-primary">
-                                <i class="fas fa-plus"></i> Add Website
-                            </button>
-                        </div>
+                    <form method="POST" action="">
+                        <label for="name">Website Name</label>
+                        <input type="text" id="name" name="name" placeholder="e.g., SRC Student Portal" required>
+
+                        <label for="url">URL</label>
+                        <input type="text" id="url" name="url" placeholder="https://portal.src.edu.ph" required>
+
+                        <label for="description">Description</label>
+                        <textarea id="description" name="description" placeholder="A brief description of the website's purpose."></textarea>
+
+                        <button type="submit" class="btn"><i class="fas fa-save"></i> Save Website</button>
+                        <a href="dashboard.php" class="btn" style="background-color: var(--secondary-color); margin-left: 10px;">Cancel</a>
                     </form>
+                    <?php if (isset($error)) { echo "<p class='error'>$error</p>"; } ?>
                 </div>
-            </div>
-        </div>
-    </div>
-    <script src="script.js"></script>
+                </div>
+                </div>
+                </div>
+                <?php include 'bottom-nav.php'; ?>
+                <script src="script.js"></script>
 </body>
 </html>

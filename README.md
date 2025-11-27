@@ -1,23 +1,166 @@
-# Website Management for Sta. Rita College (SRC)
+# Website Management System for Sta. Rita College (SRC)
 
-This project is a website management system for Sta. Rita College (SRC) to handle 7 of their web systems with admin access.
+A comprehensive web application designed to manage and analyze multiple websites for Sta. Rita College (SRC). This system provides an intuitive interface for administrators to track, monitor, and analyze their web properties.
 
-## Setup
+## 🌟 Features
 
-1.  **Database:**
-    *   Create a new database named `website_management` in your MySQL server.
-    *   Import the following SQL to create the `admins` table:
+- **User Authentication**
+  - Secure login/logout functionality
+  - Session management
+  - Admin account management
+  - Account recovery system
 
-        ```sql
-        CREATE TABLE `admins` (
-          `id` int(11) NOT NULL AUTO_INCREMENT,
-          `username` varchar(255) NOT NULL,
-          `password` varchar(255) NOT NULL,
-          PRIMARY KEY (`id`)
-        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-        ```
+- **Website Management**
+  - Add new websites with details
+  - Edit existing website information
+  - Delete websites
+  - View all websites in a responsive grid
+  - Website thumbnail generation
 
-    *   To create a new admin user, you can insert a new record into the `admins` table. Make sure to hash the password. You can use a PHP script with `password_hash()` to generate a secure password hash.
+- **Security Analysis**
+  - Automated website security scanning
+  - Detailed analysis reports
+  - Security recommendations
+  - Vulnerability assessment
+
+- **User Interface**
+  - Responsive design for all devices
+  - Intuitive dashboard
+  - Clean and modern interface
+  - Loading animations and visual feedback
+  - Mobile-optimized navigation
+
+## 🛠️ Technical Stack
+
+- **Frontend**
+  - HTML5, CSS3, JavaScript
+  - Responsive design with CSS Grid and Flexbox
+  - Font Awesome for icons
+  - Custom loading animations and skeleton screens
+
+- **Backend**
+  - PHP 7.4+
+  - MySQL Database
+  - Session-based authentication
+  - RESTful API design principles
+
+- **Security Features**
+  - Prepared statements to prevent SQL injection
+  - Input validation and sanitization
+  - Password hashing with PHP's password_hash()
+  - CSRF protection
+  - Secure session management
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- PHP 7.4 or higher
+- MySQL 5.7 or higher
+- Web server (Apache/Nginx)
+- Modern web browser
+
+### Installation
+
+1. **Database Setup**
+   - Create a new database named `website_management` in your MySQL server
+   - Import the following SQL to create the required tables:
+
+   ```sql
+   CREATE TABLE `admins` (
+     `id` int(11) NOT NULL AUTO_INCREMENT,
+     `username` varchar(255) NOT NULL,
+     `password` varchar(255) NOT NULL,
+     PRIMARY KEY (`id`)
+   ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+   ```
+
+2. **Configuration**
+   - Update `database.php` with your database credentials
+   - Set proper file permissions for uploads directory
+
+3. **Create Admin Account**
+   - Use the following PHP snippet to generate a hashed password:
+   ```php
+   <?php
+   $password = 'your_secure_password';
+   echo password_hash($password, PASSWORD_DEFAULT);
+   ?>
+   ```
+   - Insert the generated hash into the `admins` table
+
+## 📁 Project Structure
+
+```
+website-management/
+├── add_website.php      # Form to add new websites
+├── analysis_report.php  # Displays security analysis results
+├── analyzer.php         # Handles website security analysis
+├── bottom-nav.php       # Bottom navigation bar
+├── create_admin.php     # Admin account creation utility
+├── dashboard.php        # Main dashboard showing all websites
+├── database.php         # Database connection settings
+├── delete_website.php   # Handles website deletion
+├── download.php         # File download handler
+├── edit_website.php     # Edit website details
+├── images/              # Contains application images
+├── index.php            # Entry point (redirects to login)
+├── login.php            # User authentication
+├── logout.php           # Session termination
+├── script.js            # Client-side JavaScript
+├── settings.php         # User settings and profile management
+├── sidebar.php          # Side navigation component
+├── style.css            # Main stylesheet
+└── unlock_account.php   # Account recovery/unlock functionality
+```
+
+## 🔍 Usage Guide
+
+### Dashboard
+- Displays all managed websites in a responsive grid
+- Each card shows website name, description, and quick actions
+- Access analysis reports with a single click
+
+### Adding a Website
+1. Click "Add Website" in the sidebar
+2. Fill in website details (name, URL, description)
+3. Submit the form to add to your dashboard
+
+### Security Analysis
+1. Click the shield icon on any website card
+2. View detailed security report
+3. Follow recommendations to improve security
+
+### Account Management
+- Update your username and password in Settings
+- Secure your account with a strong password
+- Log out when using shared devices
+
+## 📱 Mobile Responsiveness
+
+The application features a fully responsive design that works seamlessly across all device sizes. The interface automatically adjusts to provide the best user experience on both desktop and mobile devices.
+
+## 🔒 Security Best Practices
+
+- Always use strong, unique passwords
+- Keep the application and server software updated
+- Regularly backup your database
+- Monitor access logs for suspicious activity
+- Restrict access to sensitive files and directories
+
+## 📝 License
+
+This project is licensed under the MIT License.
+
+## 🙏 Acknowledgments
+
+- Built for Sta. Rita College (SRC)
+- Uses Font Awesome for icons
+- Security analysis powered by custom algorithms
+
+## 📧 Support
+
+For technical support or inquiries, please contact the development team.
 
         Example PHP for creating a password hash:
         ```php
