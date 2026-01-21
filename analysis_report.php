@@ -1,6 +1,24 @@
+
 <?php
+session_start();
 include 'database.php';
 include 'analyzer.php';
+
+// --- Activity Log for viewing analysis report ---
+if (isset($_SESSION['admin_id']) && isset($_GET['id'])) {
+    // Only try to log if the table exists (prevents fatal error)
+    $checkTable = $conn->query("SHOW TABLES LIKE 'activity_log'");
+    if ($checkTable && $checkTable->num_rows > 0) {
+        $admin_id = $_SESSION['admin_id'];
+        $action = 'view_analysis_report';
+        $details = 'Viewed analysis report for website ID: ' . intval($_GET['id']);
+        $ip = $_SERVER['REMOTE_ADDR'] ?? '';
+        $stmt2 = $conn->prepare("INSERT INTO activity_log (admin_id, action, details, ip_address) VALUES (?, ?, ?, ?)");
+        $stmt2->bind_param("isss", $admin_id, $action, $details, $ip);
+        $stmt2->execute();
+        $stmt2->close();
+    }
+}
 
 $website_id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 if ($website_id === 0) {
@@ -138,7 +156,15 @@ $recommendations = get_recommendations($analysis);
             <div class="label">Subject</div>
             <div class="value"><?php echo htmlspecialchars($analysis['ssl']['subject']); ?></div>
             <div class="label">Expires On</div>
-            <div class="value"><?php echo $valid_to->format('F j, Y'); ?> (<?php echo $days_left; ?> days left)</div>
+            <div class="value">
+              <?php 
+                if ($valid_to instanceof DateTime && !$is_expired) {
+                  echo $valid_to->format('F j, Y') . " ($days_left days left)";
+                } else {
+                  echo "Expired";
+                }
+              ?>
+            </div>
           </div>
         <?php endif; ?>
       </section>
@@ -146,7 +172,7 @@ $recommendations = get_recommendations($analysis);
       <section>
         <h2 class="section-title">Security Headers</h2>
         <div class="info-grid">
-          <?php foreach ($analysis['headers'] as $header => $is_present): ?>
+          <?php foreach ((array)($analysis['headers'] ?? []) as $header => $is_present): ?>
             <div class="label"><?php echo htmlspecialchars($header); ?></div>
             <div class="value <?php echo $is_present ? 'status-ok' : 'status-bad'; ?>">
               <i class="fas <?php echo $is_present ? 'fa-check-circle' : 'fa-times-circle'; ?> status-icon"></i>

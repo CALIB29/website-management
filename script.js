@@ -1,8 +1,29 @@
 document.addEventListener('DOMContentLoaded', function() {
     const menuButton = document.getElementById('menu-toggle');
+    const sidebar = document.querySelector('.modern-sidebar') || document.querySelector('.sidebar');
+    const overlay = document.querySelector('.sidebar-overlay-bg');
+    // For legacy layout, fallback to appContainer
     const appContainer = document.querySelector('.app-container');
 
-    if (menuButton && appContainer) {
+    if (menuButton && sidebar && overlay) {
+        menuButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            sidebar.classList.toggle('active');
+            overlay.classList.toggle('active');
+        });
+        overlay.addEventListener('click', function() {
+            sidebar.classList.remove('active');
+            overlay.classList.remove('active');
+        });
+        // Optionally close sidebar on navigation
+        sidebar.querySelectorAll('a').forEach(function(link) {
+            link.addEventListener('click', function() {
+                sidebar.classList.remove('active');
+                overlay.classList.remove('active');
+            });
+        });
+    } else if (menuButton && appContainer) {
+        // Fallback for legacy sidebar collapse
         menuButton.addEventListener('click', function() {
             appContainer.classList.toggle('sidebar-collapsed');
         });

@@ -20,6 +20,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $stmt->bind_param("sssi", $name, $url, $description, $website_id);
 
     if ($stmt->execute()) {
+        // Activity log
+        $admin_id = $_SESSION['admin_id'];
+        $action = 'edit_website';
+        $details = 'Edited website ID: ' . $website_id . ' (New name: ' . $name . ', URL: ' . $url . ')';
+        $ip = $_SERVER['REMOTE_ADDR'] ?? '';
+        $conn->query("CREATE TABLE IF NOT EXISTS activity_log (id INT AUTO_INCREMENT PRIMARY KEY, admin_id INT NOT NULL, action VARCHAR(64) NOT NULL, details TEXT, ip_address VARCHAR(45), timestamp DATETIME DEFAULT CURRENT_TIMESTAMP, INDEX (admin_id), INDEX (timestamp)) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;");
+        $stmt2 = $conn->prepare("INSERT INTO activity_log (admin_id, action, details, ip_address) VALUES (?, ?, ?, ?)");
+        $stmt2->bind_param("isss", $admin_id, $action, $details, $ip);
+        $stmt2->execute();
+        $stmt2->close();
         header("Location: dashboard.php");
         exit();
     } else {

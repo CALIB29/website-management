@@ -1,3 +1,40 @@
+## Admin Dashboard Functionality
+
+This system is an admin dashboard for managing a collection of websites. Below is a summary of its features and structure:
+
+### Features
+- **Authentication:** Only logged-in admins can access the dashboard (session-based check).
+- **Website Listing:** All websites are listed as cards with:
+  - Thumbnail (auto-generated)
+  - Name and description
+  - Action buttons: Edit, Analyze, Delete (with confirmation), and Visit Site (external link)
+- **Add Website:** Button to add a new website.
+- **Navigation:** Includes sidebar and bottom navigation for easy access to other admin pages.
+- **Styling:** Uses external CSS and FontAwesome for icons.
+
+### Removed Features
+- Customizable widgets (modal, JS logic, and UI for toggling widgets) have been removed.
+- Uptime status and performance suggestions are no longer shown.
+
+### Security
+- Session-based authentication for admin access.
+- Confirmation prompt for destructive actions (delete).
+
+### Extensibility
+- Modular structure makes it easy to add new features or actions per website.
+
+### File Overview
+- `dashboard.php`: Main admin dashboard (see above for details)
+- `add_website.php`, `edit_website.php`, `delete_website.php`: CRUD operations for websites
+- `analysis_report.php`, `website-analyzer.php`, `analyzer.php`: Website analysis tools
+- `activity_log.php`, `activity_log.sql`: Admin activity tracking
+- `create_admin.php`, `login.php`, `logout.php`, `unlock_account.php`: Admin user management
+- `settings.php`: Admin settings
+- `sidebar.php`, `bottom-nav.php`: Navigation components
+- `style.css`, `script.js`: Styling and client-side interactivity
+
+---
+For further details or to add new features, see the code comments in each file or contact the developer.
 # Website Management System for Sta. Rita College (SRC)
 
 A comprehensive web application designed to manage and analyze multiple websites for Sta. Rita College (SRC). This system provides an intuitive interface for administrators to track, monitor, and analyze their web properties.

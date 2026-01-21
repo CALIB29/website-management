@@ -1,3 +1,21 @@
+/* Sidebar overlay for mobile (global CSS) */
+@media (max-width: 768px) {
+  .modern-sidebar.active,
+  .sidebar.active {
+    left: 0 !important;
+    z-index: 2000;
+  }
+  .sidebar-overlay-bg {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(44,62,80,0.25);
+    z-index: 1999;
+  }
+  .sidebar-overlay-bg.active {
+    display: block;
+  }
+}
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
 *,

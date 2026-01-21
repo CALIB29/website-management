@@ -29,9 +29,21 @@ include 'database.php';
             </div>
 
             <div class="content">
-                <a href="add_website.php" class="btn" style="margin-bottom: 30px;"><i class="fas fa-plus"></i> Add New Website</a>
+                <!-- Dashboard Analytics & Trends removed as requested -->
+                <div style="display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-bottom:18px;">
+                  <a href="add_website.php" class="btn" style="margin-bottom: 0;"><i class="fas fa-plus"></i> Add New Website</a>
+                  <div style="margin-left:auto;">
+                    <!-- Customize Widgets button removed -->
+                  </div>
+                </div>
+                <div id="widget-customizer-modal" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(44,62,80,0.18);z-index:3000;align-items:center;justify-content:center;">
+                  <!-- Customizable widget modal removed -->
+                </div>
                 <div class="website-grid">
                     <?php
+
+
+                    // --- Website Cards (also count uptime for pie chart) ---
                     $sql = "SELECT * FROM websites ORDER BY name ASC";
                     $result = $conn->query($sql);
 
@@ -42,12 +54,69 @@ include 'database.php';
                             $thumbnail_service_url = "https://s0.wordpress.com/mshots/v1/" . urlencode($website_url) . "?w=400";
                             // -------------------------------------
 
+                            // --- Uptime Monitoring removed ---
+                            $uptime_status = 'unknown';
+                            $uptime_icon = 'fa-question-circle';
+                            $uptime_color = '#aaa';
+
+                            // --- Performance Optimization Suggestions ---
+                            $perf_suggestions = [];
+                            $headers = @get_headers($row['url'], 1);
+                            if ($headers !== false) {
+                                $encoding = isset($headers['Content-Encoding']) ? $headers['Content-Encoding'] : '';
+                                if (stripos($encoding, 'gzip') === false && stripos($encoding, 'deflate') === false) {
+                                    $perf_suggestions[] = 'Enable GZIP or Brotli compression for faster load times.';
+                                }
+                                $scheme = parse_url($row['url'], PHP_URL_SCHEME);
+                                $host = parse_url($row['url'], PHP_URL_HOST);
+                                $http2 = false;
+                                if ($scheme === 'https') {
+                                    $stream = @stream_socket_client("ssl://$host:443", $errno, $errstr, 2, STREAM_CLIENT_CONNECT, stream_context_create(["ssl"=>["capture_peer_cert_chain"=>true]]));
+                                    if ($stream) {
+                                        $meta = stream_get_meta_data($stream);
+                                        if (isset($meta['crypto'])) {
+                                            $crypto = $meta['crypto'];
+                                            if (is_array($crypto)) {
+                                                $crypto = implode(' ', $crypto);
+                                            }
+                                            if (is_string($crypto) && stripos($crypto, 'HTTP/2') !== false) {
+                                                $http2 = true;
+                                            }
+                                        }
+                                        fclose($stream);
+                                    }
+                                }
+                                if (!$http2) {
+                                    $perf_suggestions[] = 'Consider enabling HTTP/2 for improved performance.';
+                                }
+                                $cache = isset($headers['Cache-Control']) ? $headers['Cache-Control'] : '';
+                                if (stripos($cache, 'max-age') === false && stripos($cache, 'public') === false) {
+                                    $perf_suggestions[] = 'Set proper Cache-Control headers for static assets.';
+                                }
+                                if (isset($headers['Content-Type'])) {
+                                    $contentType = $headers['Content-Type'];
+                                    if (is_array($contentType)) {
+                                        $contentType = implode(' ', $contentType);
+                                    }
+                                    if (is_string($contentType) && stripos($contentType, 'image/') !== false) {
+                                        if (stripos($contentType, 'webp') === false) {
+                                            $perf_suggestions[] = 'Use next-gen image formats like WebP for better performance.';
+                                        }
+                                    }
+                                }
+                            } else {
+                                $perf_suggestions[] = 'Unable to fetch headers for performance suggestions.';
+                            }
+
                             echo "<div class='website-card'>";
                             echo "<div class='website-card-thumbnail'><img src='" . $thumbnail_service_url . "' alt='" . htmlspecialchars($row['name']) . " Thumbnail'></div>";
-                            echo "<h4>" . htmlspecialchars($row['name']) . "</h4>";
+                            echo "<div style='display:flex;align-items:center;gap:8px;margin-bottom:4px;'>";
+                            echo "<h4 style='margin:0;flex:1;'>" . htmlspecialchars($row['name']) . "</h4>";
+                            echo "</div>";
                             echo "<p>" . htmlspecialchars($row['description']) . "</p>";
                             echo "<div class='card-actions'>";
-                            echo "<a href='" . htmlspecialchars($row['url']) . "' target='_blank' class='visit-link'><i class='fas fa-external-link-alt'></i> Visit Site</a>";
+                            // Widget: Visit Site
+                            echo "<a class='widget-visit-site' href='" . htmlspecialchars($row['url']) . "' target='_blank' class='visit-link'><i class='fas fa-external-link-alt'></i> Visit Site</a>";
                             echo "<div class='action-buttons'>";
                             echo "<div class='action-button-item'><a href='edit_website.php?id=" . $row['id'] . "' class='btn-edit'><i class='fas fa-edit'></i></a></div>";
                             echo "<div class='action-button-item'><a href='analysis_report.php?id=" . $row['id'] . "' class='btn-analyze'><i class='fas fa-shield-alt'></i></a></div>";
@@ -67,5 +136,6 @@ include 'database.php';
     <?php include 'bottom-nav.php'; ?>
 
     <script src="script.js"></script>
+    <!-- Customizable widget logic removed -->
 </body>
 </html>

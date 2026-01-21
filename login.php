@@ -75,6 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                 $_SESSION['admin_id'] = $admin['id'];
                 $_SESSION['admin_name'] = $admin['username'];
+                $_SESSION['admin_role'] = isset($admin['role']) ? $admin['role'] : 'admin';
 
                 // --- Insert login audit row and store its id in session ---
                 $userAgent = $_SERVER['HTTP_USER_AGENT'] ?? '';

@@ -6,10 +6,6 @@
         <i class="fas fa-tachometer-alt"></i>
         <span>Home</span>
     </a>
-    <a href="index.php" class="bottom-nav-item" data-target="websites" aria-label="Websites">
-        <i class="fas fa-globe"></i>
-        <span>Websites</span>
-    </a>
     <a href="add_website.php" class="bottom-nav-item" data-target="add" aria-label="Add website">
         <i class="fas fa-plus-circle"></i>
         <span>Add</span>
